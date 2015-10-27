@@ -81,6 +81,10 @@ typedef uint8_t PortMask;
 #define VS1053_DATABUFFERLEN 32
 
 
+#define VS1053_CONTROL_SPI_SETTING  SPISettings(250000,  MSBFIRST, SPI_MODE0)
+#define VS1053_DATA_SPI_SETTING     SPISettings(8000000, MSBFIRST, SPI_MODE0)
+
+
 class Adafruit_VS1053 {
  public:
   Adafruit_VS1053(int8_t mosi, int8_t miso, int8_t clk, 
@@ -120,7 +124,7 @@ class Adafruit_VS1053 {
 
  protected:
   uint8_t  _dreq;
- private:
+ //private:
   int8_t _mosi, _miso, _clk, _reset, _cs, _dcs;
   boolean useHardwareSPI;
 };

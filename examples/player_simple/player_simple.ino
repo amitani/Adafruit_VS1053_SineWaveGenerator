@@ -40,9 +40,9 @@
 
 Adafruit_VS1053_FilePlayer musicPlayer = 
   // create breakout-example object!
-  Adafruit_VS1053_FilePlayer(BREAKOUT_RESET, BREAKOUT_CS, BREAKOUT_DCS, DREQ, CARDCS);
+  //Adafruit_VS1053_FilePlayer(BREAKOUT_RESET, BREAKOUT_CS, BREAKOUT_DCS, DREQ, CARDCS);
   // create shield-example object!
-  //Adafruit_VS1053_FilePlayer(SHIELD_RESET, SHIELD_CS, SHIELD_DCS, DREQ, CARDCS);
+  Adafruit_VS1053_FilePlayer(SHIELD_RESET, SHIELD_CS, SHIELD_DCS, DREQ, CARDCS);
   
 void setup() {
   Serial.begin(9600);
@@ -57,7 +57,7 @@ void setup() {
   SD.begin(CARDCS);    // initialise the SD card
   
   // Set volume for left, right channels. lower numbers == louder volume!
-  musicPlayer.setVolume(20,20);
+  musicPlayer.setVolume(100,100);
 
   // Timer interrupts are not suggested, better to use DREQ interrupt!
   //musicPlayer.useInterrupt(VS1053_FILEPLAYER_TIMER0_INT); // timer int
@@ -68,37 +68,11 @@ void setup() {
   
   // Play one file, don't return until complete
   Serial.println(F("Playing track 001"));
-  musicPlayer.playFullFile("track001.mp3");
+  musicPlayer.sineTest(10,1000);
   // Play another file in the background, REQUIRES interrupts!
   Serial.println(F("Playing track 002"));
-  musicPlayer.startPlayingFile("track002.mp3");
+  musicPlayer.sineTest(5,1000);
 }
 
 void loop() {
-  // File is playing in the background
-  if (musicPlayer.stopped()) {
-    Serial.println("Done playing music");
-    while (1);
-  }
-  if (Serial.available()) {
-    char c = Serial.read();
-    
-    // if we get an 's' on the serial console, stop!
-    if (c == 's') {
-      musicPlayer.stopPlaying();
-    }
-    
-    // if we get an 'p' on the serial console, pause/unpause!
-    if (c == 'p') {
-      if (! musicPlayer.paused()) {
-        Serial.println("Paused");
-        musicPlayer.pausePlaying(true);
-      } else { 
-        Serial.println("Resumed");
-        musicPlayer.pausePlaying(false);
-      }
-    }
-  }
-
-  delay(100);
 }
