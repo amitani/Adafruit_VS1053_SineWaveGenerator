@@ -24,7 +24,6 @@
 #include "pins_arduino.h"
 #include "wiring_private.h"
 #include <SPI.h> 
-#include <SD.h>
 
 #ifdef __SAM3X8E__
 typedef volatile RwReg PortReg;
@@ -127,33 +126,6 @@ class Adafruit_VS1053 {
  //private:
   int8_t _mosi, _miso, _clk, _reset, _cs, _dcs;
   boolean useHardwareSPI;
-};
-
-
-class Adafruit_VS1053_FilePlayer : public Adafruit_VS1053 {
- public:
-  Adafruit_VS1053_FilePlayer (int8_t mosi, int8_t miso, int8_t clk, 
-			      int8_t rst, int8_t cs, int8_t dcs, int8_t dreq,
-			      int8_t cardCS);
-  Adafruit_VS1053_FilePlayer (int8_t rst, int8_t cs, int8_t dcs, int8_t dreq,
-			      int8_t cardCS);
-  Adafruit_VS1053_FilePlayer (int8_t cs, int8_t dcs, int8_t dreq,
-			      int8_t cardCS);
-
-  boolean begin(void);
-  boolean useInterrupt(uint8_t type);
-  File currentTrack;
-  volatile boolean playingMusic;
-  void feedBuffer(void);
-  boolean startPlayingFile(const char *trackname);
-  boolean playFullFile(const char *trackname);
-  void stopPlaying(void);
-  boolean paused(void);
-  boolean stopped(void);
-  void pausePlaying(boolean pause);
-
- private:
-  uint8_t _cardCS;
 };
 
 #endif // ADAFRUIT_VS1053_H
