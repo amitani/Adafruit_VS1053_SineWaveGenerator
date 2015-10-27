@@ -20,7 +20,6 @@ void Adafruit_VS1053_SineWaveGenerator::init(){
 	uint16_t mode = sciRead(VS1053_REG_MODE);
 	mode |= 0x0020;
 	sciWrite(VS1053_REG_MODE, mode);
-	dumpRegs();
 }
 
 
