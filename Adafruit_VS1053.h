@@ -33,10 +33,6 @@ typedef volatile uint8_t PortReg;
 typedef uint8_t PortMask;
 #endif
 
-
-#define VS1053_FILEPLAYER_TIMER0_INT 255 // allows useInterrupt to accept pins 0 to 254
-#define VS1053_FILEPLAYER_PIN_INT 5
-
 #define VS1053_SCI_READ 0x03
 #define VS1053_SCI_WRITE 0x02
 
@@ -82,6 +78,24 @@ typedef uint8_t PortMask;
 
 #define VS1053_CONTROL_SPI_SETTING  SPISettings(250000,  MSBFIRST, SPI_MODE0)
 #define VS1053_DATA_SPI_SETTING     SPISettings(8000000, MSBFIRST, SPI_MODE0)
+
+#ifndef _BV
+#define _BV(x) (1<<(x))
+#endif
+
+// These are the pins used for the breakout example
+#define BREAKOUT_RESET  9      // VS1053 reset pin (output)
+#define BREAKOUT_CS     10     // VS1053 chip select pin (output)
+#define BREAKOUT_DCS    8      // VS1053 Data/command select pin (output)
+// These are the pins used for the music maker shield
+#define SHIELD_RESET  -1      // VS1053 reset pin (unused!)
+#define SHIELD_CS     7      // VS1053 chip select pin (output)
+#define SHIELD_DCS    6      // VS1053 Data/command select pin (output)
+
+// These are common pins between breakout and shield
+#define CARDCS 4     // Card chip select pin
+// DREQ should be an Int pin, see http://arduino.cc/en/Reference/attachInterrupt
+#define DREQ 3       // VS1053 Data request, ideally an Interrupt pin
 
 
 class Adafruit_VS1053 {
